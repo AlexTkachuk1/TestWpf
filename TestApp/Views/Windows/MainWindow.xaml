@@ -1,12 +1,92 @@
 ﻿<Window x:Class="TestApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:cmd="clr-namespace:TestApp.Infrastructure.Commands"
+        xmlns:img="clr-namespace:TestApp.Infrastructure"
+        xmlns:vm="clr-namespace:TestApp.ViewModels"
+
         
-    </Grid>
+        Title="{Binding Title}"
+        Height="570" Width="800" >
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="Salmon">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Помощь" Height="48">
+                <MenuItem Header="О программе"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem MinWidth="100" MaxWidth="300" Background="PaleVioletRed">
+                <TextBlock Text="{Binding Status}" FontSize="16"/>
+            </StatusBarItem>
+            <StatusBarItem FontSize="16" Background="PaleVioletRed" Height="28">
+                <ProgressBar Width="120" Height="14" Value="30"/>
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl>
+            <TabItem MinWidth="156">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Regular_File" Height="18" Margin="0,0,5,0"/>
+                        <TextBlock Text="Поиск товара"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Images/фон2.jpg"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="189*"/>
+                        <ColumnDefinition Width="93*"/>
+                        <ColumnDefinition Width="512*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <GridSplitter Grid.Column="1"
+                                  HorizontalAlignment="Left"
+                                  Width="4" Margin="28,0,0,0"/>
+                    <Grid Height="355" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="27,0,66,0">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/Images/wp.png"/>
+                        </Grid.Background>
+                        <TextBox HorizontalAlignment="Left" Height="53" Margin="10,135,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="179" FontSize="30" FontFamily="Informal Roman"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Width="179" Height="55" Margin="10,24,0,0" FontSize="30" FontFamily="Informal Roman" Text="Enter Item Id"/>
+                    </Grid>
+                    <Grid Grid.Column="2" Margin="25,47,31,43">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/Images/лососевый фон.jpg"/>
+                        </Grid.Background>
+                        <Image MinWidth="100" MinHeight="100"  Margin="97,78,0,23" HorizontalAlignment="Left" Width="270">
+                            <Image.Source>
+                                <BitmapImage UriSource="{Binding FigureUrl}"/>
+                            </Image.Source>
+                        </Image>
+                        <TextBlock HorizontalAlignment="Left" Margin="117,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Informal Roman" Width="188" Height="42" FontSize="33" Text="Standard image"/>
+                    </Grid>
+                    <Button Content="Send" HorizontalAlignment="Left" Margin="54,308,0,0" VerticalAlignment="Top" Width="135" FontSize="30" FontFamily="Informal Roman" Height="53"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Каталог" MinWidth="157" MaxWidth="200"></TabItem>
+            <TabItem Header="Добавить лот" MinWidth="157" MaxWidth="200"></TabItem>
+            <TabItem Header="Удалить лот" MinWidth="157" MaxWidth="200"></TabItem>
+            <TabItem Header="Обновить лот" MinWidth="157" MaxWidth="200"></TabItem>
+            <Image Height="100" Width="100"/>
+        </TabControl>
+    </DockPanel>
 </Window>
+    
